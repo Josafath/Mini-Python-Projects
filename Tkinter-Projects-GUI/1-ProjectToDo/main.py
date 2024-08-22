@@ -97,7 +97,7 @@ class TodoProject:
         self.root.mainloop()
         
 
-    
+    # Logic functions
     def setTotalTasks(self):
         self.totalTasks += 1
         return self.totalTasks
@@ -109,23 +109,22 @@ class TodoProject:
             x = self.setTotalTasks()
             task = text_field.get("1.0",END)
             text_field.delete("1.0",END)
-            print(task)
+
             print("A task was added")
+
             tasks.configure(state='normal')
+            #Write the task and add a line break
             tasks.insert(str(x)+'.0',str(x) +" -> " +task+"\n")
             tasks.configure(state='disabled')
 
     def delete_task(self, total_tasks, task_id):
         list_of_tasks = total_tasks.get("1.0", END)
-        total_tasks.configure(state='normal')
-
         id = task_id.get("1.0", END)
         task_id.delete("1.0",END)
-        id = id.replace(" ","")
 
-        print(list_of_tasks)
         x = []
         t=""
+        # Adding a loop to make the array with every single task
         for c in list_of_tasks:            
             if c != "\n":
                 t += c
@@ -133,10 +132,10 @@ class TodoProject:
                 x.append(t)
                 t = ""
         
-        
+        total_tasks.configure(state='normal')
+        # Adding a loop to search the row that we want to delete
         for i,item in enumerate(x):
             if item not in ("", "\n", " ","\n","\r"):
-                
                 if int(item[0]) is int(id):
                     print("TASK DELETED")
                     total_tasks.delete(str(i+1)+".0", str(i+1)+"."+str(len(item)))
